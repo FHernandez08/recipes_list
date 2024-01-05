@@ -1,0 +1,16 @@
+{% block page_title %}
+    {{ recipe|title }} Recipe
+{% endblock %}
+
+{% block content %}
+    {% include "recipe/includes/header.html" %}
+
+    <h1>{{ recipe|title }}</h1>
+
+    {% if text is not None %}
+    <p>{{ text }}</p>
+    {% else %}
+    <p>There is no recipe available at this month!</p>
+    {% endif %}
+
+{% endblock %}
