@@ -8,4 +8,21 @@ The recipes list project is created to practice the topics learned in the course
 
 The goal for this project is to have a full grasp of the 4 topics listed above, by implementing my own version of the 4 topics, and being able to get a successful Django project.
 
-There will also be an implementation of HTML and CSS to create the structure and styling to make the website stand out.
+Completing this project, I encountered two problems,
+  1. not having the proper URL for the proper view
+  2. not having the data on the template appearing for the view
+
+  To correct the first problem, I had to correct the name for the url path in the apps urls.py file to show the right view for the site.
+    path("<str:item>", views.recipe_items, name="recipe-list") <= using this name for the url path, was able to connect the views.py file for the app to the template
+
+    <li><a href="{% url 'recipe-list' recipe %}">{{ recipe|title }}</a></li> <= the template was able to recognize the url and display the function for the views, which was a group of links
+  To correct the second problem, we changed the values in the arguments for the render function which was able to display the specific view for the website once the link for the url for that specific view was clicked.
+    def recipe_items(request, item):
+    try:
+        recipe_text = recipe_list[item]
+        return render(request, "recipe/recipe.html", {
+            "text": recipe_text,
+            "recipe": item   <= this is what needed to be fixed because it was giving an error
+        })
+    except:
+        raise Http404()
