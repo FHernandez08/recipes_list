@@ -25,18 +25,18 @@ def recipe_items_by_number(request, recipe):
 
     if recipe > len(recipes):
         return HttpResponseNotFound("This recipe is not found on this website.")
-    
+
     redirect_recipe = recipes[recipe - 1]
-    redirect_path = reverse("recipe", args=[redirect_recipe])
+    redirect_path = reverse('recipe-list', args=[redirect_recipe])
     return HttpResponseRedirect(redirect_path)
 
 
-def recipe_items(request, recipe):
+def recipe_items(request, item):
     try:
-        recipe_text = recipe_list[recipe]
-        return render(request, "recipe/templates/recipe.html", {
+        recipe_text = recipe_list[item]
+        return render(request, "recipe/recipe.html", {
             "text": recipe_text,
-            "recipe": recipe
+            "recipe": item
         })
     except:
-        raise Http404
+        raise Http404()
